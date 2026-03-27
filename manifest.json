@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Avichat Asset Fix",
+  "version": "1.2",
+  "description": "Fixes Avichat tilemap, images, and avatar strip loading on GaiaOnline",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "avichat-asset-fix@gaiaonline"
+    }
+  },
+
+  "permissions": [],
+  "host_permissions": [
+    "https://www.gaiaonline.com/*",
+    "https://graphics.gaiaonline.com/*",
+    "https://a1cdn.gaiaonline.com/*",
+    "https://raw.githubusercontent.com/*"
+  ],
+
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.gaiaonline.com/*"],
+      "js": ["content-script.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["page-script.js"],
+      "matches": ["https://www.gaiaonline.com/*"]
+    }
+  ]
+}
