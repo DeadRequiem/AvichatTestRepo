@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "AzruneExtension",
+  "version": "0.0.2",
+  "description": "CORS patch for Jigsaw + asset/avatar fixes for Avichat and GaiaOnline pages",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "azrune-extension@gaiaonline"
+    }
+  },
+
+  "permissions": [],
+  "host_permissions": [
+    "https://www.gaiaonline.com/*",
+    "https://graphics.gaiaonline.com/*",
+    "https://a1cdn.gaiaonline.com/*",
+    "https://raw.githubusercontent.com/*"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.gaiaonline.com/gaiagames/jigsaw*"],
+      "js": ["jigsaw/content_script.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.gaiaonline.com/gaiagames/jigsaw*"],
+      "js": ["jigsaw/relay.js"],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    },
+    {
+      "matches": ["https://www.gaiaonline.com/*"],
+      "exclude_matches": ["https://www.gaiaonline.com/gaiagames/jigsaw*"],
+      "js": ["avichat/content-script.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["avichat/page-script.js"],
+      "matches": ["https://www.gaiaonline.com/*"]
+    }
+  ]
+}
